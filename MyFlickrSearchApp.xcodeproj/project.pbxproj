@@ -56,6 +56,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C63D28DB1E05BE24005E325B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C69687C31E05B9ED009D26E0 /* AppDelegate.swift */,
+				C69687CA1E05B9ED009D26E0 /* Assets.xcassets */,
+				C69687CC1E05B9ED009D26E0 /* LaunchScreen.storyboard */,
+				C69687CF1E05B9ED009D26E0 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		C69687B71E05B9ED009D26E0 = {
 			isa = PBXGroup;
 			children = (
@@ -77,12 +88,9 @@
 		C69687C21E05B9ED009D26E0 /* MyFlickrSearchApp */ = {
 			isa = PBXGroup;
 			children = (
-				C69687C31E05B9ED009D26E0 /* AppDelegate.swift */,
+				C63D28DB1E05BE24005E325B /* Supporting Files */,
 				C69687C51E05B9ED009D26E0 /* ViewController.swift */,
 				C69687C71E05B9ED009D26E0 /* Main.storyboard */,
-				C69687CA1E05B9ED009D26E0 /* Assets.xcassets */,
-				C69687CC1E05B9ED009D26E0 /* LaunchScreen.storyboard */,
-				C69687CF1E05B9ED009D26E0 /* Info.plist */,
 			);
 			path = MyFlickrSearchApp;
 			sourceTree = "<group>";
@@ -410,6 +418,7 @@
 				C69687DF1E05B9ED009D26E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C69687E01E05B9ED009D26E0 /* Build configuration list for PBXNativeTarget "MyFlickrSearchAppTests" */ = {
 			isa = XCConfigurationList;
@@ -418,6 +427,7 @@
 				C69687E21E05B9ED009D26E0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
