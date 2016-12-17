@@ -113,46 +113,29 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
         print("configure cell at [\(indexPath.section)][\(indexPath.row)]")
         cell.textLabel?.text = photosModel[indexPath.section][indexPath.row].title
      
-        //currentPage = indexPath.section + 1
+        currentPage = indexPath.section + 1
      
         return cell
-     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
     }
-    */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    fileprivate var currentPage = 0
+    fileprivate var lastPage: Int {
+        return photosModel.count
     }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
+    
+    override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let currentOffset = scrollView.contentOffset.y
+        let maximumOffset = scrollView.contentSize.height
+        
+        if currentOffset > maximumOffset - scrollView.frame.size.height {
+            print("bijlagen indien \(currentPage) == \(lastPage)")
+            if currentPage == lastPage {
+                print("nu wel bijladen")
+                search(forText: searchText!, section: currentPage + 1)
+            }
+        }
     }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
