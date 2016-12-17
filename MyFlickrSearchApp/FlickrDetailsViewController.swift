@@ -24,7 +24,7 @@ class FlickrDetailsViewController: UIViewController, UIScrollViewDelegate {
         print("fetching image")
         if let url = imageURL {
             print("fetching \(imageURL?.absoluteString)")
-//            spinner?.startAnimating()
+            spinner?.startAnimating()
             DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async {
                 let contentsOfURL = try? Data(contentsOf: url)
                 DispatchQueue.main.async {
@@ -32,7 +32,7 @@ class FlickrDetailsViewController: UIViewController, UIScrollViewDelegate {
                         if let imageData = contentsOfURL {
                             self.image = UIImage(data: imageData)
                         } else {
-//                            self.spinner?.stopAnimating()
+                            self.spinner?.stopAnimating()
                         }
                     } else {
                         print("ignored data returned from url \(url)")
@@ -55,6 +55,8 @@ class FlickrDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     private var imageView = UIImageView()
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     private var image: UIImage? {
         get {
             return imageView.image
@@ -63,6 +65,7 @@ class FlickrDetailsViewController: UIViewController, UIScrollViewDelegate {
             imageView.image = newValue
             imageView.sizeToFit()
             scrollView?.contentSize = imageView.frame.size
+            spinner?.stopAnimating()
         }
     }
 
