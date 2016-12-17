@@ -20,11 +20,13 @@ class FlickrProvider {
         static let invalidAccessErrorCode = 100
     }
     
-    class func fetchPhotosForSearchText(searchText: String, section page: Int, onCompletion: @escaping FlickrResponse) -> Void {
-        let escapedSearchText: String = searchText.addingPercentEncoding(withAllowedCharacters:.urlHostAllowed)!
+    class func fetchPhotos(searchText: String, section page: Int, onCompletion: @escaping FlickrResponse) -> Void {
+        let replacement = searchText.replacingOccurrences(of: " ", with: "+")
+        let escapedSearchText: String = replacement.addingPercentEncoding(withAllowedCharacters:.urlHostAllowed)!
         let urlString: String = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(Keys.flickrKey)&tags=\(escapedSearchText)&per_page=25&page=\(page)&format=json&nojsoncallback=1"
-        let url: NSURL = NSURL(string: urlString)!
-        let searchTask = URLSession.shared.dataTask(with: url as URL, completionHandler: {data, response, error -> Void in
+        print("\(urlString)")
+        let url: URL = URL(string: urlString)!
+        let searchTask = URLSession.shared.dataTask(with: url, completionHandler: {data, response, error -> Void in
             
             if error != nil {
                 print("Error fetching photos: \(error)")

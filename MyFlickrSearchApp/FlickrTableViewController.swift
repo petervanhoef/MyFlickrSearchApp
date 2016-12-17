@@ -75,7 +75,7 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
 
     fileprivate func search(forText textToSearch: String, section: Int) {
         print("searching for \(textToSearch)")
-        FlickrProvider.fetchPhotosForSearchText(searchText: textToSearch, section: section, onCompletion: { (error: NSError?, flickrPhotos: [FlickrPhoto]?) -> Void in
+        FlickrProvider.fetchPhotos(searchText: textToSearch, section: section, onCompletion: { (error: NSError?, flickrPhotos: [FlickrPhoto]?) -> Void in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false
             if error == nil {
                 self.photosModel.append(flickrPhotos!)
