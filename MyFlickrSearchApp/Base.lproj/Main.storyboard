@@ -13,24 +13,44 @@
         <scene sceneID="h3Z-UA-Hlb">
             <objects>
                 <tableViewController id="chY-wW-lPL" customClass="FlickrTableViewController" customModule="MyFlickrSearchApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="KmM-BB-WGZ">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="100" sectionHeaderHeight="28" sectionFooterHeight="28" id="KmM-BB-WGZ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" id="jUP-yx-7yZ">
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="cuU-zS-K8E">
                             <rect key="frame" x="0.0" y="64" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FlickrTableViewCell" id="odc-kW-Y3R">
-                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FlickrTableViewCell" rowHeight="100" id="odc-kW-Y3R" customClass="FlickrTableViewCell" customModule="MyFlickrSearchApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="72" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="odc-kW-Y3R" id="CBd-dK-zGv">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lgB-3N-jCr">
+                                            <rect key="frame" x="276" y="0.0" width="99" height="99"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9g7-u9-KLH">
+                                            <rect key="frame" x="8" y="39" width="250" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="HgA-2a-zM8">
+                                            <rect key="frame" x="315" y="40" width="20" height="20"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </activityIndicatorView>
+                                    </subviews>
                                 </tableViewCellContentView>
                                 <connections>
+                                    <outlet property="flickrMiniatureImageView" destination="lgB-3N-jCr" id="Dch-Wc-Rcr"/>
+                                    <outlet property="flickrMiniatureSpinner" destination="HgA-2a-zM8" id="DUz-bu-h0t"/>
+                                    <outlet property="flickrTitleLabel" destination="9g7-u9-KLH" id="AcL-Nk-WOS"/>
                                     <segue destination="PbX-KN-pZx" kind="show" identifier="Show Details" id="BVy-0A-r5k"/>
                                 </connections>
                             </tableViewCell>
@@ -43,7 +63,7 @@
                     <navigationItem key="navigationItem" title="My Flickr Search App" id="Bdx-B1-cBY"/>
                     <connections>
                         <outlet property="flickrTableView" destination="KmM-BB-WGZ" id="voC-DO-4KP"/>
-                        <outlet property="searchBar" destination="jUP-yx-7yZ" id="xmp-nb-6rD"/>
+                        <outlet property="searchBar" destination="cuU-zS-K8E" id="5UL-RA-Blr"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9EK-my-6z0" userLabel="First Responder" sceneMemberID="firstResponder"/>

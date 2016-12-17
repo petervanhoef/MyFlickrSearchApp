@@ -109,9 +109,16 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: searchResultCellIdentifier, for: indexPath as IndexPath) //as? FlickrTableViewCell //SearchResultCell
         
         //cell!.setupWithPhoto(flickrPhoto: photosModel[indexPath.section][indexPath.row])
-     
+
+        let flickrPhoto = photosModel[indexPath.section][indexPath.row]
+        if let flickrCell = cell as? FlickrTableViewCell {
+            flickrCell.flickrPhoto = flickrPhoto
+        }
+        
+        /*return cell*/
+        
         print("configure cell at [\(indexPath.section)][\(indexPath.row)]")
-        cell.textLabel?.text = photosModel[indexPath.section][indexPath.row].title
+        //cell.textLabel?.text = photosModel[indexPath.section][indexPath.row].title
      
         currentPage = indexPath.section + 1
      
@@ -130,8 +137,10 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
         if currentOffset > maximumOffset - scrollView.frame.size.height {
             print("bijlagen indien \(currentPage) == \(lastPage)")
             if currentPage == lastPage {
-                print("nu wel bijladen")
-                search(forText: searchText!, section: currentPage + 1)
+                if searchText != nil {
+                    print("nu wel bijladen")
+                    search(forText: searchText!, section: currentPage + 1)
+                }
             }
         }
     }
