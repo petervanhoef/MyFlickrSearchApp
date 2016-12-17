@@ -8,7 +8,7 @@
 
 import UIKit
 
-class FlickrTableViewController: UITableViewController {
+class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
 
     // MARK: - Model
     
@@ -21,7 +21,6 @@ class FlickrTableViewController: UITableViewController {
 
     var searchText: String? { // also part of the model
         didSet {
-            //photos.removeAll()
             photosModel.removeAll()
             search(forText: searchText!, section: 1)
             title = searchText
@@ -29,6 +28,25 @@ class FlickrTableViewController: UITableViewController {
     }
     
     @IBOutlet var flickrTableView: UITableView!
+    
+    // MARK: - Search
+    
+    @IBOutlet weak var searchBar: UISearchBar! {
+        didSet {
+            searchBar.delegate = self
+            searchBar.text = searchText
+        }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchText = searchBar.text
+    }
+    
+    /*public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+        searchText = nil
+    }*/
     
     // MARK: - Storyboard
     
@@ -40,8 +58,8 @@ class FlickrTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        searchText = "snowboarding"
-        flickrTableView.reloadData()
+        //searchText = "snowboarding"
+        //flickrTableView.reloadData()
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -55,7 +73,7 @@ class FlickrTableViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    private func search(forText textToSearch: String, section: Int) {
+    fileprivate func search(forText textToSearch: String, section: Int) {
         print("searching for \(textToSearch)")
         FlickrProvider.fetchPhotosForSearchText(searchText: textToSearch, section: section, onCompletion: { (error: NSError?, flickrPhotos: [FlickrPhoto]?) -> Void in
             UIApplication.shared.isNetworkActivityIndicatorVisible = false

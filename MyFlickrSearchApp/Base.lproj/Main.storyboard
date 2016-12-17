@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Flickr Table View Controller-->
+        <!--My Flickr Search App-->
         <scene sceneID="h3Z-UA-Hlb">
             <objects>
                 <tableViewController id="chY-wW-lPL" customClass="FlickrTableViewController" customModule="MyFlickrSearchApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -17,9 +17,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="jUP-yx-7yZ">
+                            <rect key="frame" x="0.0" y="64" width="375" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FlickrTableViewCell" id="odc-kW-Y3R">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="odc-kW-Y3R" id="CBd-dK-zGv">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
@@ -35,9 +40,10 @@
                             <outlet property="delegate" destination="chY-wW-lPL" id="yFM-8g-A7d"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Bdx-B1-cBY"/>
+                    <navigationItem key="navigationItem" title="My Flickr Search App" id="Bdx-B1-cBY"/>
                     <connections>
                         <outlet property="flickrTableView" destination="KmM-BB-WGZ" id="voC-DO-4KP"/>
+                        <outlet property="searchBar" destination="jUP-yx-7yZ" id="xmp-nb-6rD"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9EK-my-6z0" userLabel="First Responder" sceneMemberID="firstResponder"/>

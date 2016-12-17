@@ -10,6 +10,8 @@ import UIKit
 
 class FlickrDetailsViewController: UIViewController, UIScrollViewDelegate {
 
+    // MARK: - Image loading
+    
     var imageURL: URL? {
         didSet {
             print("image url is set")
@@ -42,6 +44,8 @@ class FlickrDetailsViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
+    // MARK: - Image handling
+    
     @IBOutlet weak var scrollView: UIScrollView! {
         didSet {
             scrollView.contentSize = imageView.frame.size
@@ -51,13 +55,11 @@ class FlickrDetailsViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    // MARK: - Image handling
-    
-    private var imageView = UIImageView()
+    fileprivate var imageView = UIImageView()
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
-    private var image: UIImage? {
+    fileprivate var image: UIImage? {
         get {
             return imageView.image
         }
@@ -69,6 +71,10 @@ class FlickrDetailsViewController: UIViewController, UIScrollViewDelegate {
         }
     }
 
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if image == nil {
@@ -79,7 +85,6 @@ class FlickrDetailsViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         scrollView.addSubview(imageView)
     }
 
@@ -88,15 +93,5 @@ class FlickrDetailsViewController: UIViewController, UIScrollViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
