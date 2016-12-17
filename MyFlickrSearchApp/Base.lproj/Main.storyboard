@@ -26,7 +26,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="PbX-KN-pZx" kind="show" id="BVy-0A-r5k"/>
+                                    <segue destination="PbX-KN-pZx" kind="show" identifier="Show Details" id="BVy-0A-r5k"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -44,10 +44,10 @@
             </objects>
             <point key="canvasLocation" x="1127.2" y="138.98050974512745"/>
         </scene>
-        <!--View Controller-->
+        <!--Flickr Details View Controller-->
         <scene sceneID="n41-yV-8zV">
             <objects>
-                <viewController id="PbX-KN-pZx" sceneMemberID="viewController">
+                <viewController id="PbX-KN-pZx" customClass="FlickrDetailsViewController" customModule="MyFlickrSearchApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="eTF-1T-wmF"/>
                         <viewControllerLayoutGuide type="bottom" id="Zws-Lx-cEm"/>
@@ -55,12 +55,21 @@
                     <view key="view" contentMode="scaleToFill" id="mAt-Zz-poj">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ZG-JF-5yM">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </scrollView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="scrollView" destination="2ZG-JF-5yM" id="FNg-T0-GbQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zlm-UK-KTX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2038" y="150"/>
+            <point key="canvasLocation" x="2037.5999999999999" y="149.77511244377811"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="h0h-ox-coA">

@@ -33,7 +33,7 @@ class FlickrTableViewController: UITableViewController {
     // MARK: - Storyboard
     
     private struct Storyboard {
-        static let ShowImageSegue = "Show Image"
+        static let ShowDetailsSegue = "Show Details"
         static let FlickrCellIdentifier = "FlickrTableViewCell"
     }
     
@@ -135,14 +135,19 @@ class FlickrTableViewController: UITableViewController {
     }
     */
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        if segue.identifier == Storyboard.ShowDetailsSegue { // check identifier first
+            if let fdvc = segue.destination as? FlickrDetailsViewController {
+                if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                    fdvc.imageURL = photosModel[selectedIndexPath.section][selectedIndexPath.row].photoBigUrl
+                    fdvc.title = photosModel[selectedIndexPath.section][selectedIndexPath.row].title
+                }
+            }
+        }
     }
-    */
-
 }
