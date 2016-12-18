@@ -85,12 +85,10 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
                     self.photosModel.append(flickrPhotos!)
                     self.activeRequest = false
                 } else {
-                    //self.photosModel[section] = []
                     if (error!.code == FlickrDataProvider.FlickrErrors.invalidAPIKey) {
-                        DispatchQueue.main.async(execute: { () -> Void in
-                            //self.showErrorAlert()
-                        })
+                        print("invalid API key")
                     }
+                    print("Error handling not implemented")
                     self.activeRequest = false
                 }
                 DispatchQueue.main.async(execute: { () -> Void in
