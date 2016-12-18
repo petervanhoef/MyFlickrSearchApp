@@ -32,12 +32,12 @@ First version, with basic functionality up and running. It is possible to search
 
 ### Known limitations:
 * There is no feedback to the user, when e.g. the search didn't return any photo's.
-* The app will try to retrieve more photo's even when the end of the list is reached.
+* The app will try to retrieve more photo's (pages) ven when the end of the list is reached, and, as it will append a page as empty rows.
 * Unit test cover only one very basic class
 
 ### Future enhancements: 
 * Move model into a framework which is used by the application
-* Memory management: only keep information cached which is visible and a few pages before and after view instead of reducing memory on a low memory warning
+* Memory management: only keep information cached which is visible and a few pages before and after view instead of reducing memory (i.e. throw all retrieved pages away) on a low memory warning - note that the Flickr search api returns at most the first 4.000 results and as we don't story the pictures, memory usage is not that high
 * Code to retrieve minitures and full pictures is very simular, could be make a more generic function?
 
 # Building the App
