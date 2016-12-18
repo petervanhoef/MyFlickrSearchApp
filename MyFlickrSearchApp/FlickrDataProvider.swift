@@ -20,6 +20,7 @@ class FlickrDataProvider {
         static let invalidAPIKey = 100
     }
     
+    // note: escaping because the closure is invoked after the functions returns
     class func fetchPhotos(searchText: String, section page: Int, onCompletion: @escaping FlickrResponse) -> Void {
         // formatting search text
         let replacement = searchText.replacingOccurrences(of: " ", with: "+")
@@ -78,6 +79,7 @@ class FlickrDataProvider {
                     let isFamily    = photoDictionary["isfamily"] as? Bool ?? false
                     
                     let flickrPhoto = FlickrPhoto(id: id, owner: owner, secret: secret, server: server, farm: farm, title: title, isPublic: isPublic, isFriend: isFriend, isFamily: isFamily)
+                    
                     return flickrPhoto
                 }
                 
