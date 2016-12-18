@@ -51,6 +51,7 @@ First version, with basic functionality up and running. It is possible to search
  * Foundation: See [Apple Developer](https://developer.apple.com/reference/foundation) for more information
 * Other: none
  * Other frameworks are not included because in such a simple app as this one they would only increase the project's complexity and dependencies. When sticking to the Apple Frameworks, maintainebility will be easier.
+ * Flickr API Kits for Objective-C are available, but outdated.
  
 ## Deployement target
 * iOS 10.1
