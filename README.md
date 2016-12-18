@@ -21,6 +21,10 @@ This app is the result of a programming assignment with as task to write an app 
 
 ## Version 1.0 Build 1
 
+### Tag
+Server: https://github.com/petervanhoef/MyFlickrSearchApp
+Tag: v1.0_build_1
+
 ### Description
 First version, with very basic functionality up and running. It is possible to search for photos with specific keywords. The results of a search are displayed in an infinite scroll list where each cell contains the title and a photo. When tapping on a cell, the user can see the full screen photo with zoom and pan possibilities. Details of the photo are not retrieved in this version.
 
@@ -55,6 +59,3 @@ First version, with very basic functionality up and running. It is possible to s
 ## Deployement target
 * iOS 10.1
 * Devices: iPhone
-
-# Acknowledgments
-* [Developing iOS 9 Apps with Swift](https://itunes.apple.com/us/course/developing-ios-9-apps-swift/id1104579961)
