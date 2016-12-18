@@ -35,14 +35,14 @@ class FlickrTableViewCell: UITableViewCell {
     }
    
     fileprivate func fetchImage() {
-        print("fetching image")
-        if let url = flickrPhoto?.photoUrl {
-            print("fetching \(url.absoluteString)")
+        //print("fetching image")
+        if let url = flickrPhoto?.photoSquareUrl {
+            //print("fetching \(url.absoluteString)")
             flickrMiniatureSpinner?.startAnimating()
             DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async {
                 let contentsOfURL = try? Data(contentsOf: url)
                 DispatchQueue.main.async {
-                    if url == self.flickrPhoto?.photoUrl {
+                    if url == self.flickrPhoto?.photoSquareUrl {
                         if let imageData = contentsOfURL {
                             self.flickrMiniatureImageView?.image = UIImage(data: imageData)
                             self.flickrMiniatureSpinner?.stopAnimating()

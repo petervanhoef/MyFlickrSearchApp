@@ -22,6 +22,7 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
     var searchText: String? { // also part of the model
         didSet {
             photosModel.removeAll()
+            photosModel = [Array<FlickrPhoto>]()
             search(forText: searchText!, section: 1)
             title = searchText
         }
@@ -43,6 +44,8 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
         searchText = searchBar.text
     }
     
+    fileprivate var activeRequest = false
+    
     /*public func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         searchText = nil
@@ -58,9 +61,6 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //searchText = "snowboarding"
-        //flickrTableView.reloadData()
-
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -71,36 +71,46 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+        photosModel.removeAll()
+        title = "Search again"
     }
 
     fileprivate func search(forText textToSearch: String, section: Int) {
         print("searching for \(textToSearch)")
-        FlickrProvider.fetchPhotos(searchText: textToSearch, section: section, onCompletion: { (error: NSError?, flickrPhotos: [FlickrPhoto]?) -> Void in
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            if error == nil {
-                self.photosModel.append(flickrPhotos!)
-            } else {
-                //self.photosModel[section] = []
-                if (error!.code == FlickrProvider.Errors.invalidAccessErrorCode) {
-                    DispatchQueue.main.async(execute: { () -> Void in
-                        //self.showErrorAlert()
-                    })
+        if !activeRequest {
+            activeRequest = true
+            FlickrDataProvider.fetchPhotos(searchText: textToSearch, section: section, onCompletion: { (error: NSError?, flickrPhotos: [FlickrPhoto]?) -> Void in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                if error == nil {
+                    print("appending pictures for section \(section)")
+                    self.photosModel.append(flickrPhotos!)
+                    self.activeRequest = false
+                } else {
+                    //self.photosModel[section] = []
+                    if (error!.code == FlickrDataProvider.FlickrErrors.invalidAPIKey) {
+                        DispatchQueue.main.async(execute: { () -> Void in
+                            //self.showErrorAlert()
+                        })
+                    }
+                    self.activeRequest = false
                 }
-            }
-            DispatchQueue.main.async(execute: { () -> Void in
-                self.title = textToSearch//searchText
-                self.tableView.reloadData()
+                DispatchQueue.main.async(execute: { () -> Void in
+                    self.title = textToSearch//searchText
+                    self.tableView.reloadData()
+                })
             })
-        })
+        }
     }
     
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
+        print("sections: \(photosModel.count)")
         return photosModel.count // Number of rows represents number of sections
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print("rows: \(photosModel[section].count) in section \(section)")
         return photosModel[section].count // Number of pictures in a section
     }
 
@@ -154,7 +164,7 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
         if segue.identifier == Storyboard.ShowDetailsSegue { // check identifier first
             if let fdvc = segue.destination as? FlickrDetailsViewController {
                 if let selectedIndexPath = tableView.indexPathForSelectedRow {
-                    fdvc.imageURL = photosModel[selectedIndexPath.section][selectedIndexPath.row].photoBigUrl
+                    fdvc.imageURL = photosModel[selectedIndexPath.section][selectedIndexPath.row].photoLargeUrl
                     fdvc.title = photosModel[selectedIndexPath.section][selectedIndexPath.row].title
                 }
             }

@@ -9,19 +9,22 @@
 import Foundation
 
 struct FlickrPhoto {
-    
-    let photoId: String
-    let farm: Int
+    let id: String
+    let owner: String
     let secret: String
     let server: String
+    let farm: Int
     let title: String
+    let isPublic: Bool
+    let isFriend: Bool
+    let isFamily: Bool
     
-    var photoUrl: URL {
-        return URL(string: "https://farm\(farm).staticflickr.com/\(server)/\(photoId)_\(secret)_m.jpg")!
+    // computed
+    var photoSquareUrl: URL {
+        return URL(string: "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret)_q.jpg")!
     }
-    
-    var photoBigUrl: URL {
-        return URL(string: "https://farm\(farm).staticflickr.com/\(server)/\(photoId)_\(secret)_b.jpg")!
+    var photoLargeUrl: URL {
+        return URL(string: "https://farm\(farm).staticflickr.com/\(server)/\(id)_\(secret)_b.jpg")!
     }
     
 }
