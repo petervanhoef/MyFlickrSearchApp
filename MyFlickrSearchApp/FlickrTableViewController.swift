@@ -22,7 +22,6 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
     var searchText: String? { // also part of the model
         didSet {
             photosModel.removeAll()
-            photosModel = [Array<FlickrPhoto>]()
             search(forText: searchText!, section: 1)
             title = searchText
         }
@@ -55,7 +54,7 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
     
     private struct Storyboard {
         static let ShowDetailsSegue = "Show Details"
-        static let FlickrCellIdentifier = "FlickrTableViewCell"
+        static let FlickrTableViewCellIdentifier = "FlickrTableViewCell"
     }
     
     override func viewDidLoad() {
@@ -76,8 +75,8 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
     }
 
     fileprivate func search(forText textToSearch: String, section: Int) {
-        print("searching for \(textToSearch)")
         if !activeRequest {
+            print("searching for \(textToSearch)")
             activeRequest = true
             FlickrDataProvider.fetchPhotos(searchText: textToSearch, section: section, onCompletion: { (error: NSError?, flickrPhotos: [FlickrPhoto]?) -> Void in
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
@@ -105,30 +104,23 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        print("sections: \(photosModel.count)")
         return photosModel.count // Number of rows represents number of sections
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("rows: \(photosModel[section].count) in section \(section)")
         return photosModel[section].count // Number of pictures in a section
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let searchResultCellIdentifier = "FlickrTableViewCell"
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: searchResultCellIdentifier, for: indexPath as IndexPath) //as? FlickrTableViewCell //SearchResultCell
+        let cell = self.tableView.dequeueReusableCell(withIdentifier: Storyboard.FlickrTableViewCellIdentifier, for: indexPath as IndexPath)
         
-        //cell!.setupWithPhoto(flickrPhoto: photosModel[indexPath.section][indexPath.row])
-
         let flickrPhoto = photosModel[indexPath.section][indexPath.row]
+
         if let flickrCell = cell as? FlickrTableViewCell {
             flickrCell.flickrPhoto = flickrPhoto
         }
         
-        /*return cell*/
-        
-        print("configure cell at [\(indexPath.section)][\(indexPath.row)]")
-        //cell.textLabel?.text = photosModel[indexPath.section][indexPath.row].title
+        //print("configure cell at [\(indexPath.section)][\(indexPath.row)]")
      
         currentPage = indexPath.section + 1
      
@@ -145,10 +137,8 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
         let maximumOffset = scrollView.contentSize.height
         
         if currentOffset > maximumOffset - scrollView.frame.size.height {
-            print("bijlagen indien \(currentPage) == \(lastPage)")
             if currentPage == lastPage {
                 if searchText != nil {
-                    print("nu wel bijladen")
                     search(forText: searchText!, section: currentPage + 1)
                 }
             }
@@ -164,6 +154,7 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
         if segue.identifier == Storyboard.ShowDetailsSegue { // check identifier first
             if let fdvc = segue.destination as? FlickrDetailsViewController {
                 if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                    // Possible improvement: pass one FlickrPhoto object to the FlickrDetailsViewController
                     fdvc.imageURL = photosModel[selectedIndexPath.section][selectedIndexPath.row].photoLargeUrl
                     fdvc.title = photosModel[selectedIndexPath.section][selectedIndexPath.row].title
                 }

@@ -20,8 +20,6 @@ class FlickrDataProvider {
         static let invalidAPIKey = 100
     }
     
-    static var highestRetrievedPage = 0
-    
     class func fetchPhotos(searchText: String, section page: Int, onCompletion: @escaping FlickrResponse) -> Void {
         // formatting search text
         let replacement = searchText.replacingOccurrences(of: " ", with: "+")
@@ -56,14 +54,11 @@ class FlickrDataProvider {
                 // we should have a valid response
                 guard let photosContainer = resultsDictionary!["photos"] as? NSDictionary else { return }
                 guard let currentPage = photosContainer["page"] as? Int else { return }
-                guard let pages = photosContainer["pages"] as? Int else { return }
-                guard let total = photosContainer["total"] as? String else { return }
-                print("\(pages) with in total \(total) - currentPage \(currentPage) highestpage \(highestRetrievedPage)")
-                
-                if currentPage > highestRetrievedPage { highestRetrievedPage = currentPage }
+                guard let totalPages = photosContainer["pages"] as? Int else { return }
+                //guard let totalPictures = photosContainer["total"] as? String else { return } // variable not used
                 
                 // if we are requesting more pages than present, we return - seems this is an ugly hack
-                if (page > pages) {
+                if (currentPage > totalPages) {
                     onCompletion(NSError(domain: "Requested to much pages", code: 1, userInfo: nil), nil)
                     return
                 }

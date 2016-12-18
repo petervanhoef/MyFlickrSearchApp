@@ -14,7 +14,6 @@ class FlickrDetailsViewController: UIViewController, UIScrollViewDelegate {
     
     var imageURL: URL? {
         didSet {
-            print("image url is set")
             image = nil
             if view.window != nil {
                 fetchImage()
@@ -23,9 +22,7 @@ class FlickrDetailsViewController: UIViewController, UIScrollViewDelegate {
     }
     
     fileprivate func fetchImage() {
-        print("fetching image")
         if let url = imageURL {
-            print("fetching \(imageURL?.absoluteString)")
             spinner?.startAnimating()
             DispatchQueue.global(qos: DispatchQoS.QoSClass.userInitiated).async {
                 let contentsOfURL = try? Data(contentsOf: url)
