@@ -38,6 +38,7 @@ First version, with basic functionality up and running. It is possible to search
 ### Future enhancements: 
 * Move model into a framework which is used by the application
 * Memory management: only keep information cached which is visible and a few pages before and after view instead of reducing memory on a low memory warning
+* Code to retrieve minitures and full pictures is very simular, could be make a more generic function?
 
 # Building the App
 
