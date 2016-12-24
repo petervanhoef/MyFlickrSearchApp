@@ -13,7 +13,7 @@ class FlickrDataProvider {
     typealias FlickrResponse = (NSError?, [FlickrPhoto]?) -> Void
     
     fileprivate struct Keys {
-        static let flickrKey = "62847c623bf5b121ba54f85717beb784"
+        static let flickrKey = "Fill in your key"
     }
     
     struct FlickrErrors {
