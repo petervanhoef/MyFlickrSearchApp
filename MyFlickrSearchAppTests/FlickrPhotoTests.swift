@@ -31,7 +31,7 @@ class FlickrPhotoTests: XCTestCase {
         XCTAssertEqual(flickrPhoto.photoLargeUrl.absoluteString, "https://farm1.staticflickr.com/157/30864358643_2fe6af229f_b.jpg")
     }
     
-    func testInstantiationFlickrPhoto() {
+    func instantiation(flickrPhoto: FlickrPhoto) {
         XCTAssertEqual(flickrPhoto.id, "30864358643")
         XCTAssertEqual(flickrPhoto.owner, "90836230@N06")
         XCTAssertEqual(flickrPhoto.secret, "2fe6af229f")
@@ -42,35 +42,27 @@ class FlickrPhotoTests: XCTestCase {
         XCTAssertEqual(flickrPhoto.isFriend, false)
         XCTAssertEqual(flickrPhoto.isFamily, false)
     }
-    
-    let flickrPhotoExt = try! FlickrPhoto(json: ["id": "30864358643", "owner": "90836230@N06", "secret": "2fe6af229f", "server": "157", "farm": 1, "title": "2016 Training Camp: Snowboarding", "ispublic": 1, "isfriend": 0, "isfamily": 0])
-    
-    func testInstantiationFlickrPhotoExt() {
-        XCTAssertEqual(flickrPhotoExt.id, "30864358643")
-        XCTAssertEqual(flickrPhotoExt.owner, "90836230@N06")
-        XCTAssertEqual(flickrPhotoExt.secret, "2fe6af229f")
-        XCTAssertEqual(flickrPhotoExt.server, "157")
-        XCTAssertEqual(flickrPhotoExt.farm, 1)
-        XCTAssertEqual(flickrPhotoExt.title, "2016 Training Camp: Snowboarding")
-        XCTAssertEqual(flickrPhotoExt.isPublic, true)
-        XCTAssertEqual(flickrPhotoExt.isFriend, false)
-        XCTAssertEqual(flickrPhotoExt.isFamily, false)
-    }
-    
-    let flickrFail = FlickrFail(stat: "fail", code: 100, message: "Invalid API Key (Key has invalid format)")
-    
-    func testInstantiationFlickrFail() {
+
+    func instantiation(flickrFail: FlickrFail) {
         XCTAssertEqual(flickrFail.stat, "fail")
         XCTAssertEqual(flickrFail.code, 100)
         XCTAssertEqual(flickrFail.message, "Invalid API Key (Key has invalid format)")
     }
     
-    let flickrFailExt = try! FlickrFail(json: ["stat":"fail","code":100,"message":"Invalid API Key (Key has invalid format)"])
-    
-    func testInstantiationFlickrFailExt() {
-        XCTAssertEqual(flickrFailExt.stat, "fail")
-        XCTAssertEqual(flickrFailExt.code, 100)
-        XCTAssertEqual(flickrFailExt.message, "Invalid API Key (Key has invalid format)")
+    func testInstantiationFlickrPhoto() {
+        instantiation(flickrPhoto: flickrPhoto)
+        instantiation(flickrPhoto: flickrPhotoExt)
     }
+    
+    let flickrPhotoExt = try! FlickrPhoto(json: ["id": "30864358643", "owner": "90836230@N06", "secret": "2fe6af229f", "server": "157", "farm": 1, "title": "2016 Training Camp: Snowboarding", "ispublic": true, "isfriend": false, "isfamily": false] as [String : Any])
+    
+    let flickrFail = FlickrFail(stat: "fail", code: 100, message: "Invalid API Key (Key has invalid format)")
+    
+    func testInstantiationFlickrFail() {
+        instantiation(flickrFail: flickrFail)
+        instantiation(flickrFail: flickrFailExt)
+    }
+    
+    let flickrFailExt = try! FlickrFail(json: ["stat":"fail","code":100,"message":"Invalid API Key (Key has invalid format)"])
     
 }
