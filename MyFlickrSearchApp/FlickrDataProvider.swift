@@ -8,20 +8,22 @@
 
 import Foundation
 
+enum DataProviderError: Error {
+    case serialization(String)
+    case network(String)
+    case fetching(FlickrFail)
+}
+
 class FlickrDataProvider {
     
-    typealias FlickrResponse = (NSError?, [FlickrPhoto]?) -> Void
+    typealias FlickrResponse = (DataProviderError?, [FlickrPhoto]?) -> Void
     
     fileprivate struct Keys {
-        static let flickrKey = "Fill in your key"
-    }
-    
-    struct FlickrErrors {
-        static let invalidAPIKey = 100
+        static let flickrKey = "TODO"
     }
     
     // note: escaping because the closure is invoked after the functions returns
-    class func fetchPhotos(searchText: String, section page: Int, onCompletion: @escaping FlickrResponse) -> Void {
+    class func fetchPhotos(searchText: String, section page: Int, onCompletion: @escaping FlickrResponse) {
         // formatting search text
         let replacement = searchText.replacingOccurrences(of: " ", with: "+")
         let escapedSearchText: String = replacement.addingPercentEncoding(withAllowedCharacters:.urlHostAllowed)!
@@ -31,68 +33,66 @@ class FlickrDataProvider {
         let url: URL = URL(string: urlString)!
         
         // performing the search
-        let searchTask = URLSession.shared.dataTask(with: url, completionHandler: {data, response, error -> Void in
+        let searchTask = URLSession.shared.dataTask(with: url) {data, response, error in
             
             if error != nil {
                 print("Error fetching photos: \(error)")
-                onCompletion(error as NSError?, nil)
+                onCompletion(DataProviderError.network("dataTask failed"), nil)
                 return
             }
             
             do {
-                let resultsDictionary = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: AnyObject]
-                guard let results = resultsDictionary else { return }
+                let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any]
+                guard let results = json else { return }
                 
-                // check if status code was returned instead of answer
-                if let statusCode = results["code"] as? Int {
-                    if statusCode == FlickrErrors.invalidAPIKey {
-                        let invalidAccessError = NSError(domain: "com.flickr.api", code: statusCode, userInfo: nil)
-                        onCompletion(invalidAccessError, nil)
+                if let stat = results["stat"] as? String {
+                    switch stat {
+                    case "ok":
+                        var flickrPhotos2: [FlickrPhoto] = []
+                        print("search ok")
+                        
+                        guard let photosContainerJSON = results["photos"] as? [String: Any] else { print("photosjson faild"); return }
+                        
+                        
+                        guard let currentPage2 = photosContainerJSON["page"] as? Int else {print("curpage2 failed") ; return }
+                        guard let totalPages2 = photosContainerJSON["pages"] as? Int else {print("totalpage2 failed") ; return }
+                        
+                        
+                        if let photosContainer2 = photosContainerJSON["photo"] as? [Any]
+                        {
+                            for case let photo in photosContainer2 {
+                                if let flickrPhoto = try FlickrPhoto(json: (photo as? [String : Any])!) as? FlickrPhoto {
+                                    flickrPhotos2.append(flickrPhoto)
+                                }
+                            }
+                            onCompletion(nil, flickrPhotos2)
+                            
+                        }
+                        
+                    //case "fail":
+                    default:
+                        print("search fail")
+                        let flickrError = try FlickrFail(json: json!)
+                        onCompletion(DataProviderError.fetching(flickrError), nil)
                         return
                     }
                 }
                 
-                // we should have a valid response
-                guard let photosContainer = resultsDictionary!["photos"] as? NSDictionary else { return }
-                guard let currentPage = photosContainer["page"] as? Int else { return }
-                guard let totalPages = photosContainer["pages"] as? Int else { return }
-                //guard let totalPictures = photosContainer["total"] as? String else { return } // variable not used
-                
-                // if we are requesting more pages than present, we return - seems this is an ugly hack
-                if (currentPage > totalPages) {
-                    onCompletion(NSError(domain: "Requested to much pages", code: 1, userInfo: nil), nil)
-                    return
-                }
-                
-                guard let photosArray = photosContainer["photo"] as? [NSDictionary] else { return }
-                
-                let flickrPhotos: [FlickrPhoto] = photosArray.map { photoDictionary in
-                    
-                    let id          = photoDictionary["id"] as? String ?? ""
-                    let owner       = photoDictionary["owner"] as? String ?? ""
-                    let secret      = photoDictionary["secret"] as? String ?? ""
-                    let server      = photoDictionary["server"] as? String ?? ""
-                    let farm        = photoDictionary["farm"] as? Int ?? 0
-                    let title       = photoDictionary["title"] as? String ?? ""
-                    let isPublic    = photoDictionary["ispublic"] as? Bool ?? false
-                    let isFriend    = photoDictionary["isfriend"] as? Bool ?? false
-                    let isFamily    = photoDictionary["isfamily"] as? Bool ?? false
-                    
-                    let flickrPhoto = FlickrPhoto(id: id, owner: owner, secret: secret, server: server, farm: farm, title: title, isPublic: isPublic, isFriend: isFriend, isFamily: isFamily)
-                    
-                    return flickrPhoto
-                }
-                
-                onCompletion(nil, flickrPhotos)
-                
             } catch let error as NSError {
                 print("Error parsing JSON: \(error)")
-                onCompletion(error, nil)
+                onCompletion(DataProviderError.network("unkown error"), nil)
                 return
             }
             
-        })
+        }
         searchTask.resume()
     }
-    
+    /*
+    class func getDetails(forPhoto: FlickrPhoto, onCompletion: @escaping FlickrResponse) {
+        
+        let urlString = "https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=\(Keys.flickrKey)&photo_id=\(forPhoto.id)&secret=\(forPhoto.secret)&format=json&nojsoncallback=1"
+        let url = URL(string: urlString)!
+        
+        
+    }*/
 }

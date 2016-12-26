@@ -78,17 +78,27 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
         if !activeRequest {
             print("searching for \(textToSearch)")
             activeRequest = true
-            FlickrDataProvider.fetchPhotos(searchText: textToSearch, section: section, onCompletion: { (error: NSError?, flickrPhotos: [FlickrPhoto]?) -> Void in
+            FlickrDataProvider.fetchPhotos(searchText: textToSearch, section: section, onCompletion: { (error: DataProviderError?, flickrPhotos: [FlickrPhoto]?) -> Void in
                 UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 if error == nil {
                     print("appending pictures for section \(section)")
                     self.photosModel.append(flickrPhotos!)
                     self.activeRequest = false
                 } else {
-                    if (error!.code == FlickrDataProvider.FlickrErrors.invalidAPIKey) {
-                        print("invalid API key")
+                    if case let DataProviderError.fetching(flickrFail) = error! {
+                        let alert = UIAlertController(
+                            title: "Oops",
+                            message: flickrFail.message,
+                            preferredStyle: UIAlertControllerStyle.alert)
+                        
+                        alert.addAction(UIAlertAction(title: "OK", style: .default){UIAlertAction in
+                            NSLog("OK Pressed")})
+                        
+                        // En nu weer naar de main thread om dat user interactie is
+                        DispatchQueue.main.async { [unowned unownedSelf = self] in
+                            unownedSelf.present(alert, animated: true, completion: nil)
+                        }
                     }
-                    print("Error handling not implemented")
                     self.activeRequest = false
                 }
                 DispatchQueue.main.async(execute: { () -> Void in
