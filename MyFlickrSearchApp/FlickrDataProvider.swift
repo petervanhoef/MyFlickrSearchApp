@@ -17,9 +17,10 @@ enum DataProviderError: Error {
 class FlickrDataProvider {
     
     typealias FlickrResponse = (DataProviderError?, [FlickrPhoto]?) -> Void
+    typealias FlickrDetailResponse = (DataProviderError?, FlickrPhotoDetail?) -> Void
     
     fileprivate struct Keys {
-        static let flickrKey = "TODO"
+        static let flickrKey = "todo"
     }
     
     // note: escaping because the closure is invoked after the functions returns
@@ -62,6 +63,7 @@ class FlickrDataProvider {
                         {
                             for case let photo in photosContainer2 {
                                 if let flickrPhoto = try FlickrPhoto(json: (photo as? [String : Any])!) as? FlickrPhoto {
+                                    print("json passed = \(photo)")
                                     flickrPhotos2.append(flickrPhoto)
                                 }
                             }
@@ -87,12 +89,52 @@ class FlickrDataProvider {
         }
         searchTask.resume()
     }
-    /*
-    class func getDetails(forPhoto: FlickrPhoto, onCompletion: @escaping FlickrResponse) {
+
+    class func getDetails(forPhoto: FlickrPhoto, onCompletion: @escaping FlickrDetailResponse) {
         
         let urlString = "https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=\(Keys.flickrKey)&photo_id=\(forPhoto.id)&secret=\(forPhoto.secret)&format=json&nojsoncallback=1"
         let url = URL(string: urlString)!
         
+        let searchTask = URLSession.shared.dataTask(with: url) {data, response, error in
+            
+            if error != nil {
+                print("Error fetching details: \(error)")
+                onCompletion(DataProviderError.network("dataTask failed"), nil)
+                return
+            }
+            
+            do {
+                let json = try JSONSerialization.jsonObject(with: data!, options: []) as? [String: Any]
+                guard let results = json else { return }
+                
+                if let stat = results["stat"] as? String {
+                    switch stat {
+                    case "ok":
+                        print("search ok")
+                        
+                        guard let photosContainerJSON = results["photo"] as? [String: Any] else { print("photosjson faild"); return }
+                        
+                        let flickrPhotoDetail = try! FlickrPhotoDetail(json: photosContainerJSON)
+                        
+                        onCompletion(nil, flickrPhotoDetail)
+                        
+                    //case "fail":
+                    default:
+                        print("search fail")
+                        let flickrError = try FlickrFail(json: json!)
+                        onCompletion(DataProviderError.fetching(flickrError), nil)
+                        return
+                    }
+                }
+                
+            } catch let error as NSError {
+                print("Error parsing JSON: \(error)")
+                onCompletion(DataProviderError.network("unkown error"), nil)
+                return
+            }
+            
+        }
+        searchTask.resume()
         
-    }*/
+    }
 }

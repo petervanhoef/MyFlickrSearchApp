@@ -123,3 +123,65 @@ extension FlickrFail {
         self.message = message
     }
 }
+
+struct FlickrPhotoDetail {
+    let id: String
+    let secret: String
+    let username: String
+    let realname: String
+    let title: String
+    let description: String
+    let datetaken: String
+}
+
+extension FlickrPhotoDetail {
+    init(json: [String : Any]) throws {
+        // Extract id
+        guard let id = json["id"] as? String else {
+            throw SerializationError.missing("id")
+        }
+
+        // Extract secret
+        guard let secret = json["secret"] as? String else {
+            throw SerializationError.missing("secret")
+        }
+
+        // Extract username and realname
+        guard let ownerJSON = json["owner"] as? [String : Any],
+            let username = ownerJSON["username"] as? String,
+            let realname = ownerJSON["realname"] as? String
+        else {
+            throw SerializationError.missing("owner")
+        }
+
+        // Extract title
+        guard let titleJSON = json["title"] as? [String : Any],
+            let title = titleJSON["_content"] as? String
+        else {
+            throw SerializationError.missing("title")
+        }
+
+        // Extract description
+        guard let descriptionJSON = json["description"] as? [String : Any],
+            let description = descriptionJSON["_content"] as? String
+        else {
+            throw SerializationError.missing("description")
+        }
+
+        // Extract datetaken
+        guard let datesJSON = json["dates"] as? [String : Any],
+            let datetaken = datesJSON["taken"] as? String
+        else {
+            throw SerializationError.missing("dates.taken")
+        }
+
+        // Initialize properties
+        self.id = id
+        self.secret = secret
+        self.username = username
+        self.realname = realname
+        self.title = title
+        self.description = description
+        self.datetaken = datetaken
+    }
+}

@@ -65,4 +65,36 @@ class FlickrPhotoTests: XCTestCase {
     
     let flickrFailExt = try! FlickrFail(json: ["stat":"fail","code":100,"message":"Invalid API Key (Key has invalid format)"])
     
+    let flickrPhotoDetail = FlickrPhotoDetail(
+        id: "30864358643",
+        secret: "2fe6af229f",
+        username: "specialolympicsusa",
+        realname: "",
+        title: "2016 Training Camp: Snowboarding",
+        description: "Photos from Special Olympics USA Training Camp snowboarding Dec. 15 at Killington Resort in Vermont.",
+        datetaken: "2016-12-15 00:29:41")
+    
+    func instantiation(flickrPhotoDetail: FlickrPhotoDetail) {
+        XCTAssertEqual(flickrPhotoDetail.id, "30864358643")
+        XCTAssertEqual(flickrPhotoDetail.secret, "2fe6af229f")
+        XCTAssertEqual(flickrPhotoDetail.username, "specialolympicsusa")
+        XCTAssertEqual(flickrPhotoDetail.realname, "")
+        XCTAssertEqual(flickrPhotoDetail.title, "2016 Training Camp: Snowboarding")
+        XCTAssertEqual(flickrPhotoDetail.description, "Photos from Special Olympics USA Training Camp snowboarding Dec. 15 at Killington Resort in Vermont.")
+        XCTAssertEqual(flickrPhotoDetail.datetaken, "2016-12-15 00:29:41")
+    }
+    
+    let flickrPhotoDetailExt = try! FlickrPhotoDetail(json: [
+        "id": "30864358643",
+        "secret": "2fe6af229f",
+        "owner": ["username": "specialolympicsusa", "realname": ""],
+        "title": ["_content": "2016 Training Camp: Snowboarding"],
+        "description": ["_content": "Photos from Special Olympics USA Training Camp snowboarding Dec. 15 at Killington Resort in Vermont."],
+        "dates": ["taken": "2016-12-15 00:29:41"]
+    ])
+    
+    func testInstantiationFlickPhotoDetail() {
+        instantiation(flickrPhotoDetail: flickrPhotoDetail)
+        instantiation(flickrPhotoDetail: flickrPhotoDetailExt)
+    }
 }
