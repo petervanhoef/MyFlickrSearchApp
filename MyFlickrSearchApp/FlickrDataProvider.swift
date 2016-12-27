@@ -19,17 +19,13 @@ class FlickrDataProvider {
     typealias FlickrResponse = (DataProviderError?, [FlickrPhoto]?) -> Void
     typealias FlickrDetailResponse = (DataProviderError?, FlickrPhotoDetail?) -> Void
     
-    fileprivate struct Keys {
-        static let flickrKey = "todo"
-    }
-    
     // note: escaping because the closure is invoked after the functions returns
     class func fetchPhotos(searchText: String, section page: Int, onCompletion: @escaping FlickrResponse) {
         // formatting search text
         let replacement = searchText.replacingOccurrences(of: " ", with: "+")
         let escapedSearchText: String = replacement.addingPercentEncoding(withAllowedCharacters:.urlHostAllowed)!
         // formatting URL
-        let urlString: String = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(Keys.flickrKey)&tags=\(escapedSearchText)&per_page=25&page=\(page)&format=json&nojsoncallback=1"
+        let urlString: String = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=\(FlickrApiKeys.flickrKey)&tags=\(escapedSearchText)&per_page=25&page=\(page)&format=json&nojsoncallback=1"
         print("\(urlString)")
         let url: URL = URL(string: urlString)!
         
@@ -92,7 +88,7 @@ class FlickrDataProvider {
 
     class func getDetails(forPhoto: FlickrPhoto, onCompletion: @escaping FlickrDetailResponse) {
         
-        let urlString = "https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=\(Keys.flickrKey)&photo_id=\(forPhoto.id)&secret=\(forPhoto.secret)&format=json&nojsoncallback=1"
+        let urlString = "https://api.flickr.com/services/rest/?method=flickr.photos.getInfo&api_key=\(FlickrApiKeys.flickrKey)&photo_id=\(forPhoto.id)&secret=\(forPhoto.secret)&format=json&nojsoncallback=1"
         let url = URL(string: urlString)!
         
         let searchTask = URLSession.shared.dataTask(with: url) {data, response, error in
