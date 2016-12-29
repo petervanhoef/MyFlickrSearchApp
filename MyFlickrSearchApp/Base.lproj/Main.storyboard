@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -82,44 +83,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ZG-JF-5yM">
-                                <rect key="frame" x="0.0" y="64" width="375" height="512"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="300" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ZG-JF-5yM">
+                                <rect key="frame" x="16" y="64" width="343" height="519"/>
                                 <subviews>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="WeW-7W-8J6">
-                                        <rect key="frame" x="177" y="182" width="20" height="20"/>
+                                        <rect key="frame" x="161" y="184.5" width="20" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     </activityIndicatorView>
                                 </subviews>
                             </scrollView>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Yjx-ci-J74">
-                                <rect key="frame" x="34" y="596" width="176" height="44"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Yjx-ci-J74">
+                                <rect key="frame" x="16" y="591" width="343" height="64"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="xW8-WB-B2l">
-                                        <rect key="frame" x="0.0" y="0.0" width="88" height="43.5"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xW8-WB-B2l">
+                                        <rect key="frame" x="0.0" y="0.0" width="171.5" height="63.5"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Date Taken" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8B-Tn-d0E" userLabel="Photo Date Taken Label">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date Taken" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8B-Tn-d0E" userLabel="Photo Date Taken Label">
                                                 <rect key="frame" x="0.0" y="0.0" width="63.5" height="14.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="User Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YvA-ZN-oRl" userLabel="Photo User Name Label">
-                                                <rect key="frame" x="0.0" y="14.5" width="63" height="14.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YvA-ZN-oRl" userLabel="Photo User Name Label">
+                                                <rect key="frame" x="0.0" y="24.5" width="63" height="14.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Real Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K8Z-c8-Br7" userLabel="Photo Real Name Label">
-                                                <rect key="frame" x="0.0" y="29" width="60.5" height="14.5"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Real Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K8Z-c8-Br7" userLabel="Photo Real Name Label">
+                                                <rect key="frame" x="0.0" y="49" width="60.5" height="14.5"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXJ-4C-VIv" userLabel="Photo Description Label">
-                                        <rect key="frame" x="88" y="11.5" width="88" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXJ-4C-VIv" userLabel="Photo Description Label">
+                                        <rect key="frame" x="171.5" y="21.5" width="171.5" height="20.5"/>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -129,10 +129,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="2ZG-JF-5yM" firstAttribute="top" secondItem="eTF-1T-wmF" secondAttribute="bottom" id="0Rl-wa-fK8"/>
-                            <constraint firstItem="2ZG-JF-5yM" firstAttribute="bottom" secondItem="Zws-Lx-cEm" secondAttribute="top" id="7KE-Dp-0m7"/>
-                            <constraint firstItem="2ZG-JF-5yM" firstAttribute="leading" secondItem="mAt-Zz-poj" secondAttribute="leading" id="7te-JO-XhP"/>
-                            <constraint firstAttribute="trailing" secondItem="2ZG-JF-5yM" secondAttribute="trailing" id="pky-Ll-hUw"/>
+                            <constraint firstItem="Zws-Lx-cEm" firstAttribute="top" secondItem="Yjx-ci-J74" secondAttribute="bottom" constant="8" symbolic="YES" id="1Dc-lG-bPD"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="Yjx-ci-J74" secondAttribute="leading" id="6bs-bE-tOO"/>
+                            <constraint firstItem="Yjx-ci-J74" firstAttribute="top" secondItem="2ZG-JF-5yM" secondAttribute="bottom" constant="8" id="PrI-V6-7bU"/>
+                            <constraint firstItem="2ZG-JF-5yM" firstAttribute="top" secondItem="eTF-1T-wmF" secondAttribute="bottom" id="XzR-uL-ms4"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="2ZG-JF-5yM" secondAttribute="leading" id="fOc-ZO-Mhd"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Yjx-ci-J74" secondAttribute="trailing" id="qvl-fh-Lcq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2ZG-JF-5yM" secondAttribute="trailing" id="sop-81-lur"/>
                         </constraints>
                     </view>
                     <connections>
