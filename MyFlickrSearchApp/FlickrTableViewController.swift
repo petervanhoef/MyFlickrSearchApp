@@ -165,6 +165,36 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
                     // Possible improvement: pass one FlickrPhoto object to the FlickrDetailsViewController
                     fdvc.imageURL = photosModel[selectedIndexPath.section][selectedIndexPath.row].photoLargeUrl
                     fdvc.title = photosModel[selectedIndexPath.section][selectedIndexPath.row].title
+                    let temp = FlickrDataProvider.getDetails(forPhoto: photosModel[selectedIndexPath.section][selectedIndexPath.row], onCompletion:  { (error: DataProviderError?, flickrPhotoDetail: FlickrPhotoDetail?) -> Void in
+
+                        if error == nil {
+                            let tempText = "\(flickrPhotoDetail!.description) taken at \(flickrPhotoDetail!.datetaken) by \(flickrPhotoDetail!.realname) (\(flickrPhotoDetail!.username))"
+                            print("\(tempText)")
+                            //fdvc.descriptionLabel.text = tempText
+                            // Should hapen again in the main thread
+                            DispatchQueue.main.async {
+                                fdvc.photoDateTakenLabel.text = flickrPhotoDetail?.datetaken
+                                fdvc.photoUserNameLabel.text = flickrPhotoDetail?.username
+                                fdvc.photoDescriptionLabel.text = flickrPhotoDetail?.description
+                                fdvc.photoRealNameLabel.text = flickrPhotoDetail?.realname
+                            }
+                        } else {
+                            if case let DataProviderError.fetching(flickrFail) = error! {
+                                let alert = UIAlertController(
+                                    title: "Oops",
+                                    message: flickrFail.message,
+                                    preferredStyle: UIAlertControllerStyle.alert)
+                                
+                                alert.addAction(UIAlertAction(title: "OK", style: .default){UIAlertAction in
+                                    NSLog("OK Pressed")})
+                                
+                                // En nu weer naar de main thread om dat user interactie is
+                                DispatchQueue.main.async { [unowned unownedSelf = self] in
+                                    unownedSelf.present(alert, animated: true, completion: nil)
+                                }
+                            }
+                        }
+                    })
                 }
             }
         }

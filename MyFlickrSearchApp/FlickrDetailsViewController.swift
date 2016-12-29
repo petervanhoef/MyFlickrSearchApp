@@ -10,6 +10,11 @@ import UIKit
 
 class FlickrDetailsViewController: UIViewController, UIScrollViewDelegate {
 
+    @IBOutlet weak var photoDescriptionLabel: UILabel!
+    @IBOutlet weak var photoDateTakenLabel: UILabel!
+    @IBOutlet weak var photoUserNameLabel: UILabel!
+    @IBOutlet weak var photoRealNameLabel: UILabel!
+
     // MARK: - Image loading
     
     var imageURL: URL? {
@@ -64,6 +69,7 @@ class FlickrDetailsViewController: UIViewController, UIScrollViewDelegate {
             imageView.image = newValue
             imageView.sizeToFit()
             scrollView?.contentSize = imageView.frame.size
+            print("imageView: height \(imageView.frame.size.height) x width \(imageView.frame.size.width)")
             spinner?.stopAnimating()
         }
     }

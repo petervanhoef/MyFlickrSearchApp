@@ -27,7 +27,7 @@
                                 <rect key="frame" x="0.0" y="72" width="375" height="100"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="odc-kW-Y3R" id="CBd-dK-zGv">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lgB-3N-jCr">
@@ -39,7 +39,7 @@
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         </activityIndicatorView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9g7-u9-KLH">
-                                            <rect key="frame" x="107" y="0.0" width="260" height="100"/>
+                                            <rect key="frame" x="106.5" y="0.0" width="260" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                             <nil key="textColor"/>
@@ -82,20 +82,50 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2ZG-JF-5yM">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ZG-JF-5yM">
+                                <rect key="frame" x="0.0" y="64" width="375" height="512"/>
                                 <subviews>
-                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="WeW-7W-8J6">
-                                        <rect key="frame" x="177" y="291.5" width="20" height="20"/>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="WeW-7W-8J6">
+                                        <rect key="frame" x="177" y="182" width="20" height="20"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     </activityIndicatorView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="WeW-7W-8J6" secondAttribute="bottom" constant="292" id="JwP-QW-gvk"/>
-                                    <constraint firstAttribute="trailing" secondItem="WeW-7W-8J6" secondAttribute="trailing" constant="178" id="iGe-De-Ucp"/>
-                                    <constraint firstItem="WeW-7W-8J6" firstAttribute="centerY" secondItem="2ZG-JF-5yM" secondAttribute="centerY" id="qUM-7k-RJV"/>
-                                    <constraint firstItem="WeW-7W-8J6" firstAttribute="centerX" secondItem="2ZG-JF-5yM" secondAttribute="centerX" id="vMK-zU-rfe"/>
-                                </constraints>
                             </scrollView>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Yjx-ci-J74">
+                                <rect key="frame" x="34" y="596" width="176" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="xW8-WB-B2l">
+                                        <rect key="frame" x="0.0" y="0.0" width="88" height="43.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Date Taken" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L8B-Tn-d0E" userLabel="Photo Date Taken Label">
+                                                <rect key="frame" x="0.0" y="0.0" width="63.5" height="14.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="User Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YvA-ZN-oRl" userLabel="Photo User Name Label">
+                                                <rect key="frame" x="0.0" y="14.5" width="63" height="14.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Real Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K8Z-c8-Br7" userLabel="Photo Real Name Label">
+                                                <rect key="frame" x="0.0" y="29" width="60.5" height="14.5"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QXJ-4C-VIv" userLabel="Photo Description Label">
+                                        <rect key="frame" x="88" y="11.5" width="88" height="20.5"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -106,6 +136,10 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="photoDateTakenLabel" destination="L8B-Tn-d0E" id="35r-hI-EmC"/>
+                        <outlet property="photoDescriptionLabel" destination="QXJ-4C-VIv" id="0JX-Jo-Z7X"/>
+                        <outlet property="photoRealNameLabel" destination="K8Z-c8-Br7" id="BcS-pg-Tyy"/>
+                        <outlet property="photoUserNameLabel" destination="YvA-ZN-oRl" id="wSP-X2-276"/>
                         <outlet property="scrollView" destination="2ZG-JF-5yM" id="FNg-T0-GbQ"/>
                         <outlet property="spinner" destination="WeW-7W-8J6" id="ID8-1g-0qD"/>
                     </connections>
