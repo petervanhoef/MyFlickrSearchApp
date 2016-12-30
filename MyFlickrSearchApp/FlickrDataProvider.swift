@@ -33,8 +33,8 @@ class FlickrDataProvider {
         let searchTask = URLSession.shared.dataTask(with: url) {data, response, error in
             
             if error != nil {
-                print("Error fetching photos: \(error)")
-                onCompletion(DataProviderError.network("dataTask failed"), nil)
+                print("Error fetching photos: \(error!.localizedDescription)")
+                onCompletion(DataProviderError.network(error!.localizedDescription), nil)
                 return
             }
             
@@ -46,7 +46,6 @@ class FlickrDataProvider {
                     switch stat {
                     case "ok":
                         var flickrPhotos2: [FlickrPhoto] = []
-                        print("search ok")
                         
                         guard let photosContainerJSON = results["photos"] as? [String: Any] else { print("photosjson faild"); return }
                         
@@ -58,8 +57,9 @@ class FlickrDataProvider {
                         if let photosContainer2 = photosContainerJSON["photo"] as? [Any]
                         {
                             for case let photo in photosContainer2 {
-                                if let flickrPhoto = try FlickrPhoto(json: (photo as? [String : Any])!) as? FlickrPhoto {
-                                    print("json passed = \(photo)")
+                                if let flickrPhoto = try FlickrPhoto(json: (photo as? [String : Any])!) as? FlickrPhoto
+                                {
+                                    //print("json passed = \(photo)")
                                     flickrPhotos2.append(flickrPhoto)
                                 }
                             }
@@ -94,8 +94,8 @@ class FlickrDataProvider {
         let searchTask = URLSession.shared.dataTask(with: url) {data, response, error in
             
             if error != nil {
-                print("Error fetching details: \(error)")
-                onCompletion(DataProviderError.network("dataTask failed"), nil)
+                print("Error fetching details: \(error!.localizedDescription)")
+                onCompletion(DataProviderError.network(error!.localizedDescription), nil)
                 return
             }
             
@@ -106,8 +106,6 @@ class FlickrDataProvider {
                 if let stat = results["stat"] as? String {
                     switch stat {
                     case "ok":
-                        print("search ok")
-                        
                         guard let photosContainerJSON = results["photo"] as? [String: Any] else { print("photosjson faild"); return }
                         
                         let flickrPhotoDetail = try! FlickrPhotoDetail(json: photosContainerJSON)

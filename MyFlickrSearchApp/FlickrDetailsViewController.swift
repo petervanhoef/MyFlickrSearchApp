@@ -88,6 +88,11 @@ class FlickrDetailsViewController: UIViewController, UIScrollViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        photoDescriptionLabel.text = " "
+        photoDateTakenLabel.text = " "
+        photoUserNameLabel.text = " "
+        photoRealNameLabel.text = " "
+        
         scrollView.addSubview(imageView)
     }
 

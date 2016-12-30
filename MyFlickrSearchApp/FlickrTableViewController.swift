@@ -79,11 +79,34 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
             print("searching for \(textToSearch)")
             activeRequest = true
             FlickrDataProvider.fetchPhotos(searchText: textToSearch, section: section, onCompletion: { (error: DataProviderError?, flickrPhotos: [FlickrPhoto]?) -> Void in
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+
+                DispatchQueue.main.async {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                }
+                
                 if error == nil {
-                    print("appending pictures for section \(section)")
-                    self.photosModel.append(flickrPhotos!)
-                    self.activeRequest = false
+                    if flickrPhotos!.isEmpty {
+                        let alert = UIAlertController(
+                            title: "Oops",
+                            message: "Your search for '\(textToSearch)' didn't return any results.",
+                            preferredStyle: UIAlertControllerStyle.alert)
+                        
+                        alert.addAction(UIAlertAction(title: "OK", style: .default))
+
+                        // User interaction, so back to the main queue
+                        DispatchQueue.main.async { [unowned unownedSelf = self] in
+                            unownedSelf.present(alert, animated: true, completion: nil)
+                        }
+                    } else {
+                        // Appending photos will trigger a screen update -> user interaction, so back to the main queue
+                        DispatchQueue.main.async { [unowned unownedSelf = self] in
+                            unownedSelf.photosModel.append(flickrPhotos!)
+                        }
+                    }
+                    DispatchQueue.main.async { [unowned unownedSelf = self] in
+                        unownedSelf.title = textToSearch
+                        unownedSelf.tableView.reloadData()
+                    }
                 } else {
                     if case let DataProviderError.fetching(flickrFail) = error! {
                         let alert = UIAlertController(
@@ -91,20 +114,28 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
                             message: flickrFail.message,
                             preferredStyle: UIAlertControllerStyle.alert)
                         
-                        alert.addAction(UIAlertAction(title: "OK", style: .default){UIAlertAction in
-                            NSLog("OK Pressed")})
+                        alert.addAction(UIAlertAction(title: "OK", style: .default))
                         
-                        // En nu weer naar de main thread om dat user interactie is
+                        // User interaction, so back to the main queue
                         DispatchQueue.main.async { [unowned unownedSelf = self] in
                             unownedSelf.present(alert, animated: true, completion: nil)
                         }
                     }
-                    self.activeRequest = false
+                    if case let DataProviderError.network(errorMessage) = error! {
+                        let alert = UIAlertController(
+                            title: "Oops",
+                            message: errorMessage,
+                            preferredStyle: UIAlertControllerStyle.alert)
+                        
+                        alert.addAction(UIAlertAction(title: "OK", style: .default))
+                        
+                        // User interaction, so back to the main queue
+                        DispatchQueue.main.async { [unowned unownedSelf = self] in
+                            unownedSelf.present(alert, animated: true, completion: nil)
+                        }
+                    }
                 }
-                DispatchQueue.main.async(execute: { () -> Void in
-                    self.title = textToSearch//searchText
-                    self.tableView.reloadData()
-                })
+                self.activeRequest = false
             })
         }
     }
@@ -170,8 +201,8 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
                         if error == nil {
                             let tempText = "\(flickrPhotoDetail!.description) taken at \(flickrPhotoDetail!.datetaken) by \(flickrPhotoDetail!.realname) (\(flickrPhotoDetail!.username))"
                             print("\(tempText)")
-                            //fdvc.descriptionLabel.text = tempText
-                            // Should hapen again in the main thread
+
+                            // User interaction, so back to the main queue
                             DispatchQueue.main.async {
                                 fdvc.photoDateTakenLabel.text = flickrPhotoDetail?.datetaken
                                 fdvc.photoUserNameLabel.text = flickrPhotoDetail?.username
@@ -188,7 +219,20 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
                                 alert.addAction(UIAlertAction(title: "OK", style: .default){UIAlertAction in
                                     NSLog("OK Pressed")})
                                 
-                                // En nu weer naar de main thread om dat user interactie is
+                                // User interaction, so back to the main queue
+                                DispatchQueue.main.async { [unowned unownedSelf = self] in
+                                    unownedSelf.present(alert, animated: true, completion: nil)
+                                }
+                            }
+                            if case let DataProviderError.network(errorMessage) = error! {
+                                let alert = UIAlertController(
+                                    title: "Oops",
+                                    message: errorMessage,
+                                    preferredStyle: UIAlertControllerStyle.alert)
+                                
+                                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                                
+                                // User interaction, so back to the main queue
                                 DispatchQueue.main.async { [unowned unownedSelf = self] in
                                     unownedSelf.present(alert, animated: true, completion: nil)
                                 }
