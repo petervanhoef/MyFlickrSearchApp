@@ -85,7 +85,7 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
                 }
                 
                 if error == nil {
-                    if flickrPhotos!.isEmpty {
+                    if flickrPhotos!.isEmpty && self.photosModel.isEmpty {
                         let alert = UIAlertController(
                             title: "Oops",
                             message: "Your search for '\(textToSearch)' didn't return any results.",
