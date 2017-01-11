@@ -45,7 +45,7 @@ class FlickrDataProviderTests: XCTestCase {
         var flickrPhotoDetailReturned: FlickrPhotoDetail?
         let expected = expectation(description: "Wait to retrieve flickrPhoto")
         
-        let temp = FlickrDataProvider.getDetails(forPhoto: flickrPhoto, onCompletion:  { (error: DataProviderError?, flickrPhotoDetail: FlickrPhotoDetail?) -> Void in
+        FlickrDataProvider.getDetails(forPhoto: flickrPhoto, onCompletion:  { (error: DataProviderError?, flickrPhotoDetail: FlickrPhotoDetail?) -> Void in
 
             expected.fulfill()
             flickrPhotoDetailReturned = flickrPhotoDetail
@@ -67,7 +67,7 @@ class FlickrDataProviderTests: XCTestCase {
         var flickrPhotosReturned: [FlickrPhoto]?
         let expected = expectation(description: "Wait to search for flickrPhoto")
         
-        let temp = FlickrDataProvider.fetchPhotos(searchText: "Snowboarding", section: 1, onCompletion: { (error: DataProviderError?, flickrPhotos: [FlickrPhoto]?) -> Void in
+        FlickrDataProvider.fetchPhotos(searchText: "Snowboarding", section: 1, onCompletion: { (error: DataProviderError?, flickrPhotos: [FlickrPhoto]?) -> Void in
         
             expected.fulfill()
             flickrPhotosReturned = flickrPhotos

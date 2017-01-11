@@ -196,12 +196,9 @@ class FlickrTableViewController: UITableViewController, UISearchBarDelegate {
                     // Possible improvement: pass one FlickrPhoto object to the FlickrDetailsViewController
                     fdvc.imageURL = photosModel[selectedIndexPath.section][selectedIndexPath.row].photoLargeUrl
                     fdvc.title = photosModel[selectedIndexPath.section][selectedIndexPath.row].title
-                    let temp = FlickrDataProvider.getDetails(forPhoto: photosModel[selectedIndexPath.section][selectedIndexPath.row], onCompletion:  { (error: DataProviderError?, flickrPhotoDetail: FlickrPhotoDetail?) -> Void in
+                    FlickrDataProvider.getDetails(forPhoto: photosModel[selectedIndexPath.section][selectedIndexPath.row], onCompletion:  { (error: DataProviderError?, flickrPhotoDetail: FlickrPhotoDetail?) -> Void in
 
                         if error == nil {
-                            let tempText = "\(flickrPhotoDetail!.description) taken at \(flickrPhotoDetail!.datetaken) by \(flickrPhotoDetail!.realname) (\(flickrPhotoDetail!.username))"
-                            print("\(tempText)")
-
                             // User interaction, so back to the main queue
                             DispatchQueue.main.async {
                                 fdvc.photoDateTakenLabel.text = flickrPhotoDetail?.datetaken

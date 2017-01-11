@@ -50,14 +50,14 @@ class FlickrDataProvider {
                         guard let photosContainerJSON = results["photos"] as? [String: Any] else { print("photosjson faild"); return }
                         
                         
-                        guard let currentPage2 = photosContainerJSON["page"] as? Int else {print("curpage2 failed") ; return }
-                        guard let totalPages2 = photosContainerJSON["pages"] as? Int else {print("totalpage2 failed") ; return }
+                        //guard let currentPage2 = photosContainerJSON["page"] as? Int else {print("curpage2 failed") ; return }
+                        //guard let totalPages2 = photosContainerJSON["pages"] as? Int else {print("totalpage2 failed") ; return }
                         
                         
                         if let photosContainer2 = photosContainerJSON["photo"] as? [Any]
                         {
                             for case let photo in photosContainer2 {
-                                if let flickrPhoto = try FlickrPhoto(json: (photo as? [String : Any])!) as? FlickrPhoto
+                                if let flickrPhoto = try FlickrPhoto(json: (photo as? [String : Any])!) as FlickrPhoto?
                                 {
                                     //print("json passed = \(photo)")
                                     flickrPhotos2.append(flickrPhoto)
