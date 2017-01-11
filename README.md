@@ -18,7 +18,7 @@ This app is the result of a programming assignment with as task to write an app 
 5. Within the requirements there’s complete freedom to be creative and add details
 
 ## Release history
-See https://github.com/petervanhoef/MyFlickrSearchApp/releases for release information. The release information of each release covers non functional requirements 1 and 2.
+See [release section](https://github.com/petervanhoef/MyFlickrSearchApp/releases) for release information. The release notes of each release cover non functional requirements 1 and 2.
 
 ## Screen shot
 <img width="375" alt="simulator screen shot 11 jan 2017 22 05 31" src="https://cloud.githubusercontent.com/assets/24625595/21867423/62a2166c-d84e-11e6-9582-65f2fd8971b1.png">
