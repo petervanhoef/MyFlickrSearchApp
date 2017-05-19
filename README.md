@@ -17,45 +17,8 @@ This app is the result of a programming assignment with as task to write an app 
 4. Even though the app is not an exercise of design, the app must show common UI paradigms of the platform
 5. Within the requirements there’s complete freedom to be creative and add details
 
-# Release history
+## Release history
+See [release section](https://github.com/petervanhoef/MyFlickrSearchApp/releases) for release information. The release notes of each release cover non functional requirements 1 and 2.
 
-## Version 1.0 Build 1
-
-### Tag
-* Server: https://github.com/petervanhoef/MyFlickrSearchApp
-* Tag: v1.0_build_1
-
-### Description
-First version, with very basic functionality up and running. It is possible to search for photos with specific keywords. The results of a search are displayed in an infinite scroll list where each cell contains the title and a photo. When tapping on a cell, the user can see the full screen photo with zoom and pan possibilities. Details of the photo are not retrieved in this version.
-
-### Not fullfilled requirements:
-* Details of the picture are not retrieved
-
-### Added details:
-* Panning and zooming in detailled view
-
-### Known limitations:
-* There is no feedback to the user, when e.g. the search didn't return any photo's or for any other error
-* Unit test cover only one very basic class
-
-### Future enhancements: 
-* Move model into a framework which is used by the application
-* Memory management: only keep information cached which is visible and a few pages before and after view instead of reducing memory (i.e. throw all retrieved pages away) on a low memory warning - note that the Flickr search api returns at most the first 4.000 results and as we don't story the pictures, memory usage is not that high
-* Code to retrieve minitures and full pictures is very simular, could be make a more generic function?
-
-# Building the App
-
-## Build environment
-* XCode Version 8.1 (8B62), running on macOS Sierra version 10.12.1
-
-## Used libraries
-* Apple: essential Frameworks to build an iOS app
- * UIKit: See [Apple Developer](https://developer.apple.com/reference/uikit) for more information
- * Foundation: See [Apple Developer](https://developer.apple.com/reference/foundation) for more information
-* Other: none
- * Other frameworks are not included because in such a simple app as this one they would only increase the project's complexity and dependencies. When sticking to the Apple Frameworks, maintainebility will be easier.
- * Flickr API Kits for Objective-C are available, but outdated and also would only increase the project's complexity and dependencies.
- 
-## Deployement target
-* iOS 10.1
-* Devices: iPhone
+## Screen shot
+<img width="375" alt="simulator screen shot 11 jan 2017 22 05 31" src="https://cloud.githubusercontent.com/assets/24625595/21867423/62a2166c-d84e-11e6-9582-65f2fd8971b1.png">
