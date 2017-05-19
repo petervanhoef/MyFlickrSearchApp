@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gSr-46-GMc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12120" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="gSr-46-GMc">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--My Flickr Search App-->
+        <!--Flickr Search-->
         <scene sceneID="h3Z-UA-Hlb">
             <objects>
                 <tableViewController id="chY-wW-lPL" customClass="FlickrTableViewController" customModule="MyFlickrSearchApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -61,7 +61,7 @@
                             <outlet property="delegate" destination="chY-wW-lPL" id="yFM-8g-A7d"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="My Flickr Search App" id="Bdx-B1-cBY"/>
+                    <navigationItem key="navigationItem" title="Flickr Search" id="Bdx-B1-cBY"/>
                     <connections>
                         <outlet property="flickrTableView" destination="KmM-BB-WGZ" id="voC-DO-4KP"/>
                         <outlet property="searchBar" destination="cuU-zS-K8E" id="5UL-RA-Blr"/>
@@ -83,7 +83,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="300" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ZG-JF-5yM">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" verticalHuggingPriority="300" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2ZG-JF-5yM">
                                 <rect key="frame" x="16" y="64" width="343" height="519"/>
                                 <subviews>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="WeW-7W-8J6">
@@ -93,7 +93,7 @@
                                 </subviews>
                             </scrollView>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Yjx-ci-J74">
-                                <rect key="frame" x="16" y="591" width="343" height="64"/>
+                                <rect key="frame" x="16" y="591" width="343" height="63.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="xW8-WB-B2l">
                                         <rect key="frame" x="0.0" y="0.0" width="171.5" height="63.5"/>
