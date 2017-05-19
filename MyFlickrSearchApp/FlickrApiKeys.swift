@@ -9,5 +9,5 @@
 import Foundation
 
 struct FlickrApiKeys {
-    static let flickrKey = "62847c623bf5b121ba54f85717beb784"
+    static let flickrKey = "todo"
 }
